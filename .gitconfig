@@ -1,0 +1,11 @@
+[alias]
+    d = diff
+    comm = commit -m
+    co = checkout
+    cob = checkout -b
+    mast = checkout master
+    cp = cherry-pick
+    dog = log --all --decorate --oneline --graph
+[user]
+	email = bowdenm@spu.edu
+	name = Matthew Bowden

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+### EDIT THESE VALUES #########################################################
+APP="env BAMF_DESKTOP_FILE_HINT=/var/lib/snapd/desktop/applications/gitkraken_gitkraken.desktop /snap/bin/gitkraken %U"
+ICON="/snap/gitkraken/current/usr/share/pixmaps/gitkraken.png"    	  # icon file - only png supported
+WAIT=20                			  # wait time for application window to display - adjust to suit
+###############################################################################
+
+###############################################################################
+### DON'T CHANGE ANYTHING BELOW
+###############################################################################
+function change-panel-icon {
+
+    sleep $WAIT
+    activeWinLine=$(xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)")
+    activeWinId="${activeWinLine:40}"
+
+    xseticon -id "$activeWinId" "$ICON"
+}
+
+$APP & change-panel-icon
