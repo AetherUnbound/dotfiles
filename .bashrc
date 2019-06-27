@@ -193,6 +193,9 @@ export PATH="/home/mattb/programs/anaconda3/bin:$PATH"
 # Anaconda tab completion
 eval "$(register-python-argcomplete conda)"
 
+# Add snaps to the path
+export PATH="/snap/bin:$PATH"
+
 # add linux utils
 #export PATH="$PATH:/home/mattb/tools/linux-utils/bin"
 
@@ -231,6 +234,12 @@ replaceall_function () {
     find . -type f -exec sed -i $1 {} \;
 }
 
+function devault_string {
+    vars_yaml=$1
+    variable=$2
+    yq read $vars_yaml $variable | ansible-vault decrypt
+}
+
 # Eternal bash history.
 # ---------------------
 # Undocumented feature which sets the size to "unlimited".
@@ -243,10 +252,8 @@ export HISTTIMEFORMAT="[%F %T] "
 export HISTFILE=~/.bash_eternal_history
 
 # Powerline font stuff
-# Add local bin to PATH
-export PATH="/home/mattb/.local/bin:$PATH"
-if [ -f ~/.local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh ]; then
-    source ~/.local/lib/python3.7/site-packages/powerline/bindings/bash/powerline.sh
+if [ -f /home/mattb/programs/anaconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh ]; then
+    source /home/mattb/programs/anaconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
 fi
 
 if [ -d ${HOME}/.rbenv ] ; then
