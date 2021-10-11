@@ -1,3 +1,6 @@
+[user]
+	email = bowdenm@spu.edu
+	name = Madison Swain-Bowden
 [alias]
     d = diff
     comm = commit -m
@@ -6,6 +9,3 @@
     mast = checkout master
     cp = cherry-pick
     dog = log --all --decorate --oneline --graph
-[user]
-	email = bowdenm@spu.edu
-	name = Matthew Bowden

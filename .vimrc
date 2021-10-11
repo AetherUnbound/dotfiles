@@ -36,6 +36,9 @@ Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'derekwyatt/vim-scala'
 Plugin 'chrisbra/csv.vim'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'psf/black'
+Plugin 'preservim/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -72,12 +75,14 @@ noremap Y y$
 noremap! <C-h> <C-w>
 noremap <F4> <esc>:w<cr><esc>
 inoremap <F4> <esc>:w<cr><esc>li
-map <F3> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
-imap <F3> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
+map <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
+imap <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
 " Needed for GVIm
 nnoremap <S-CR> A<CR><Esc>
 " Needed for CLI VIm (Note: ^[0M was created with Ctrl+V Shift+Enter, don't type it directly
 nnoremap  A<CR><Esc>
+" Nerdtree
+nnoremap <leader>w :NERDTreeFocus<CR>
 set autoindent
 set smartindent
 set wrap
@@ -86,7 +91,7 @@ set linebreak
 set showbreak=\ \ 
 set clipboard=unnamedplus
 colors elflord
-set guifont=Terminess\ Powerline\ 12
+set guifont=Source\ Code\ Pro\ For\ Powerline\ Medium\ 12
 set softtabstop=4
 set tabstop=4
 set expandtab
@@ -100,15 +105,8 @@ cmap w!! w !sudo tee > /dev/null %
 " Path replacement
 command WindowsPath %s@\\@/@g
 
-" Make something Labkey ready
-" Sort it, select everything, join it, replace the spaces with
-" semi-colons, and then yank the line
-let @l=':sort uggVGJV:s/ /;/gVy'
-
 " Markdown config
 let vim_markdown_preview_github=1
-let $PATH .= ':/home/mattb/tools/sbt/bin:/home/mattb/tools/scala/bin:/home/mattb/tools/node/bin:/home/mattb/tools/ant/bin:/opt/gradle/gradle-4.0.1/bin:/home/mattb/programs/anaconda2/bin'
-let $PYTHONPATH = '/home/mattb/programs/anaconda3/lib/python3.6/site-packages:' + $PYTHONPATH
 
 " Vim Airline stuff
 let g:airline#extensions#tabline#enabled = 1
@@ -132,6 +130,12 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
+" NerdTree stuff
+let g:NERDTreeGitStatusShowIgnored = 1 " a heavy feature may cost much more time. default: 0
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
 
 " Latex stuff "
 " REQUIRED. This makes vim invoke Latex-Suite when you open a tex file.
@@ -159,14 +163,27 @@ let g:tex_flavor='latex'
 
 
 if has("autocmd")
-	augroup prog
-		au!
-		au BufEnter *.py map <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
-		au BufEnter *.py imap <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
-		au BufEnter *.tex map <F3> <esc>:w\|:!pdflatex -shell-escape % <cr> <esc>
-		au BufEnter *.tex imap <F3> <esc>:w\|:!pdflatex -shell-escape % <cr> <esc>
-		au BufEnter *.tex map <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
-		au BufEnter *.tex imap <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
+    augroup prog
+        au!
+        au BufEnter *.py map <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
+        au BufEnter *.py imap <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
+        au BufEnter *.py map <F5> <esc>:w\|:Black <cr> <esc>
+        au BufEnter *.py imap <F5> <esc>:w\|:Black <cr> <esc>
+        au BufEnter *.tex map <F3> <esc>:w\|:!pdflatex -shell-escape % <cr> <esc>
+        au BufEnter *.tex imap <F3> <esc>:w\|:!pdflatex -shell-escape % <cr> <esc>
+        au BufEnter *.tex map <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
+        au BufEnter *.tex imap <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
+        " Start NERDTree and put the cursor back in the other window.
+        autocmd VimEnter * NERDTree | wincmd p
+        " Exit Vim if NERDTree is the only window remaining in the only tab.
+        autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+        " Jump to the last position visited in a file when re-opening
+        au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+          \| exe "normal! g'\"" | endif
 endif
 
-
+if has("gui_running")
+    " GUI is running or is about to start.
+    " Maximize gvim window (for an alternative on Windows, see simalt below).
+    set columns=120
+endif

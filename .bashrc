@@ -15,10 +15,14 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
 # set grep color
+PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 GREP_COLORS="mt=01;34:ms=01;34:mc=01;31"
-#TERM=xterm-256color
-TERM=xterm
+TERM=xterm-256color
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -56,6 +60,7 @@ if [ -n "$force_color_prompt" ]; then
     color_prompt=
     fi
 fi
+
 # Set the title appropriately
 PROMPT_COMMAND='echo -ne "\033]0;$([[ -z ${CONDA_DEFAULT_ENV} ]] && echo "" || echo "${CONDA_DEFAULT_ENV} |") $(basename ${PWD}): ${USER}@${HOSTNAME}\007"'
 if [ "$color_prompt" = yes ]; then
@@ -96,7 +101,7 @@ alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -117,54 +122,67 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# added by Anaconda2 4.3.0 installer
-#export PATH="/opt/gradle/gradle-4.0.1/bin:~/programs/anaconda2/bin:$PATH"
+# eval "$(register-python-argcomplete conda)"
 
 # User commands
 alias openhere="xdg-open ."
-alias gw="./gradlew"
-alias oh="xdg-open ."
-alias ohe="xdg-open . && exit"
 alias :q="exit"
+alias act="source activate"
+alias deact="source deactivate"
 alias ipconfig="ip addr show | egrep '[0-9]{1,4}\.[0-9]{1,4}\.[0-9]{1,4}\.[0-9]{1,4}'"
-alias le="conda info --envs"
-alias transpile="~/programs/latex-notes-transpiler-master/transpile.sh"
+alias listenvs="conda info --envs"
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+alias transpile="/home/aether/Programs/latex-notes-transpiler-master/transpile.sh"
 alias screenoff="xset dpms force off"
 alias matrix="cmatrix -C cyan -u 7"
 alias cdl=cdl_function
-alias mkdirc=mkdirc_function
+alias ebrc='vim +94 ~/.bashrc && source ~/.bashrc'
+alias evrc='vim ~/.vimrc'
+alias jnb='jupyter notebook'
 alias b='cd ..'
 alias ro='vim -M '
-alias ebrc='vim +129 ~/.bashrc && source ~/.bashrc'
-alias evrc='vim +109 ~/.vimrc'
-alias hack='cat /dev/urandom | hexdump -C | grep "[[:alpha:]]\{2\}"' 
-alias jnb='jupyter notebook'
 alias fif=findin_function
 alias raif=replaceall_function
-alias chere=". activate $(basename $(pwd))"
-alias amh="source activate $(basename $(pwd))"
+alias oh='xdg-open .'
+alias le='conda info --envs'
+alias swamp='ssh dataswamp.info'
+alias wikissh='ssh 161.35.110.116'
+alias deac="conda deactivate"
+alias pip="python -m pip"
+alias old-dc="/usr/bin/dc"
+alias dc="docker-compose"
+alias yeet="rm -rf"
+alias mkdirc=mkdirc_function
 
-# Pytest setting
-export PYTEST_ADDOPTS="-v"
+# Binds
+bind "set completion-ignore-case on"
+bind "TAB: menu-complete"
+bind '"\e[Z": complete'
 
-# Fuzzyfind settings
+
+# Fuzzyfine settings
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
 export FZF_CTRL_T_COMMAND='ag --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
-export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/anaconda*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
+export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/anaconda*' -o -path '*/Library*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
 
-# Set default reader
 set -o vi
 
+cdl_function () {
+    cd $1 && ls -lah
+}
 
-# added by Anaconda3 installer
-export PATH="~/programs/anaconda3/bin:$PATH"
-# Anaconda tab completion
-# eval "$(register-python-argcomplete conda)"
-# Never got this to work
+mkdirc_function () {
+    mkdir -p $1 && cd $1
+}
 
-# Add snaps to the path
-export PATH="/snap/bin:$PATH"
+findin_function () {
+    grep -rn '.' -ie $1
+}
+
+replaceall_function () {
+    find . -type f -exec sed -i $1 {} \;
+}
 
 # Tab completed virtual environments
 vact () {
@@ -173,39 +191,16 @@ vact () {
 __vact()
 {
     local cur=${COMP_WORDS[COMP_CWORD]}
-    IFS=$'\n' tmp=( $(compgen -W "$(ls ~/programs/anaconda3/envs/ )" -- $cur))
+    IFS=$'\n' tmp=( $(compgen -W "$(ls /home/aether/programs/anaconda3/envs/ )" -- $cur))
     COMPREPLY=( "${tmp[@]// /\ }" )
 }
 complete -F __vact vact
 
+# Pytest setting
+export PYTEST_ADDOPTS="-v"
 
-workon() {
-    cd ~/git/${1} && vact ${1}
-}
-complete -F __vact workon
-
-
-cdl_function () {
-    cd $1 && ls -lah
-}
-
-mkdirc_function () {
-    mkdir $1 && cd $1
-}
-
-findin_function () {
-    rg -ie "$@"
-}
-
-replaceall_function () {
-    find . -type f -exec sed -i $1 {} \;
-}
-
-function devault_string {
-    vars_yaml=$1
-    variable=$2
-    yq read $vars_yaml $variable | ansible-vault decrypt
-}
+# Editor options
+export EDITOR="vim"
 
 # Eternal bash history.
 # ---------------------
@@ -219,8 +214,12 @@ export HISTTIMEFORMAT="[%F %T] "
 export HISTFILE=~/.bash_eternal_history
 
 # Powerline font stuff
-if [ -f ~/programs/anaconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh ]; then
-    source ~/programs/anaconda3/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+export PATH="/home/aether/programs/anaconda3/bin:$PATH"  # commented out by conda initialize
+# powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+if [ -f /home/aether/programs/anaconda3/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh ]; then
+    source /home/aether/programs/anaconda3/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh
 fi
 
 if [ -d ${HOME}/.rbenv ] ; then
@@ -238,6 +237,28 @@ install_rbenv() {
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-# Added by me
-export PATH="~/programs/bftools:$PATH"
-export FONTCONFIG_PATH=/etc/fonts
+
+# added by Anaconda3 installer
+# export PATH="/home/aether/programs/anaconda3/bin:$PATH"  # commented out by conda initialize
+export PATH="/home/aether/.local/bin/:$PATH"
+
+# Rebind inputrc
+bind -f ~/.inputrc
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/aether/programs/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/aether/programs/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/aether/programs/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/aether/programs/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Ruby version manager
+[ -f /etc/profile.d/rvm.sh ] && source /etc/profile.d/rvm.sh
