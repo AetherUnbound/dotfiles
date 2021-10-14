@@ -1,0 +1,27 @@
+format = """
+[┌](bold white)$fill$time[┤](bold white)
+[│](bold white)$all\
+[└─](bold white)$character"""
+
+[username]
+style_user = "white bold"
+style_root = "black bold"
+format = "📟:[$user]($style) "
+disabled = false
+show_always = true
+
+[directory]
+truncate_to_repo = false
+
+[character]
+success_symbol = "[➜](bold white) "
+error_symbol = "[✗](bold red) "
+
+[fill]
+symbol = "─"
+style = "bold white"
+
+[time]
+disabled = false
+format = "[$time]($style)"
+use_12hr = true
