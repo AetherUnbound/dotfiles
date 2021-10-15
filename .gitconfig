@@ -9,3 +9,4 @@
     mast = checkout master
     cp = cherry-pick
     dog = log --all --decorate --oneline --graph
+    p = push
