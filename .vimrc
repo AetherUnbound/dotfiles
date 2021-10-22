@@ -39,6 +39,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'psf/black'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'cespare/vim-toml'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -81,7 +82,7 @@ imap <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
 nnoremap <S-CR> A<CR><Esc>
 " Needed for CLI VIm (Note: ^[0M was created with Ctrl+V Shift+Enter, don't type it directly
 nnoremap  A<CR><Esc>
-" Nerdtree
+" Focus nerdtree window
 nnoremap <leader>w :NERDTreeFocus<CR>
 set autoindent
 set smartindent
@@ -163,6 +164,7 @@ let g:tex_flavor='latex'
 
 
 if has("autocmd")
+    autocmd BufRead,BufNewFile *.md setlocal spell
     augroup prog
         au!
         au BufEnter *.py map <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
