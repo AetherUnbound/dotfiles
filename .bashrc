@@ -213,15 +213,6 @@ export HISTTIMEFORMAT="[%F %T] "
 # http://superuser.com/questions/575479/bash-history-truncated-to-500-lines-on-each-login
 export HISTFILE=~/.bash_eternal_history
 
-# Powerline font stuff
-export PATH="/home/aether/programs/anaconda3/bin:$PATH"  # commented out by conda initialize
-# powerline-daemon -q
-POWERLINE_BASH_CONTINUATION=1
-POWERLINE_BASH_SELECT=1
-if [ -f /home/aether/programs/anaconda3/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh ]; then
-    source /home/aether/programs/anaconda3/lib/python3.8/site-packages/powerline/bindings/bash/powerline.sh
-fi
-
 if [ -d ${HOME}/.rbenv ] ; then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
@@ -262,3 +253,6 @@ unset __conda_setup
 
 # Ruby version manager
 [ -f /etc/profile.d/rvm.sh ] && source /etc/profile.d/rvm.sh
+
+# Starship init
+eval "$(starship init bash)"
