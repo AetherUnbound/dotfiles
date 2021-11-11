@@ -164,7 +164,7 @@ let g:tex_flavor='latex'
 
 
 if has("autocmd")
-    autocmd BufRead,BufNewFile *.md setlocal spell
+    autocmd BufRead,BufNewFile *.md,*.rst setlocal spell
     augroup prog
         au!
         au BufEnter *.py map <F3> <esc>:w\|:new \| 0read !flake8 --count --exit-zero # <cr> <esc>
