@@ -10,3 +10,4 @@
     cp = cherry-pick
     dog = log --all --decorate --oneline --graph
     p = push
+    onto = rebase --onto
