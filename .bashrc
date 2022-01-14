@@ -20,7 +20,6 @@ HISTSIZE=1000
 HISTFILESIZE=2000
 
 # set grep color
-PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"'
 GREP_COLORS="mt=01;34:ms=01;34:mc=01;31"
 TERM=xterm-256color
 
@@ -101,7 +100,7 @@ alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+# alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -122,67 +121,52 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-# eval "$(register-python-argcomplete conda)"
 
 # User commands
 alias openhere="xdg-open ."
+alias j="just"
+alias gw="./gradlew"
+alias oh="xdg-open ."
+alias ohe="xdg-open . && exit"
 alias :q="exit"
-alias act="source activate"
-alias deact="source deactivate"
 alias ipconfig="ip addr show | egrep '[0-9]{1,4}\.[0-9]{1,4}\.[0-9]{1,4}\.[0-9]{1,4}'"
-alias listenvs="conda info --envs"
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-alias transpile="/home/aether/Programs/latex-notes-transpiler-master/transpile.sh"
+alias le="conda info --envs"
+alias transpile="/home/aether/programs/latex-notes-transpiler-master/transpile.sh"
 alias screenoff="xset dpms force off"
 alias matrix="cmatrix -C cyan -u 7"
 alias cdl=cdl_function
-alias ebrc='vim +94 ~/.bashrc && source ~/.bashrc'
-alias evrc='vim ~/.vimrc'
+alias ebrc='vim +129 ~/.bashrc && source ~/.bashrc'
+alias evrc='vim +109 ~/.vimrc'
 alias jnb='jupyter notebook'
 alias b='cd ..'
 alias ro='vim -M '
+alias hack='cat /dev/urandom | hexdump -C | grep "[[:alpha:]]\{2\}"' 
 alias fif=findin_function
 alias raif=replaceall_function
-alias oh='xdg-open .'
-alias le='conda info --envs'
-alias swamp='ssh dataswamp.info'
+alias deac="conda deactivate"
+alias swamp="ssh aether@dataswamp.info"
 alias wikissh='ssh 161.35.110.116'
 alias deac="conda deactivate"
-alias pip="python -m pip"
-alias old-dc="/usr/bin/dc"
+alias pip="python3 -m pip"
+alias dc-old="/usr/bin/dc"
 alias dc="docker-compose"
 alias yeet="rm -rf"
+alias inenv="set | grep -i"
+alias inpip="pip list | grep -i"
 alias mkdirc=mkdirc_function
+alias a8cproxy="ssh -i ~/.ssh/automattic_id_rsa -N -D 8080 aetherunbound@proxy.automattic.com"
+alias sudovim="sudoedit"
+alias ec2ssh=connect_ec2_func
 
 # Binds
 bind "set completion-ignore-case on"
 bind "TAB: menu-complete"
 bind '"\e[Z": complete'
 
-
-# Fuzzyfine settings
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
 export FZF_CTRL_T_COMMAND='ag --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
-export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/anaconda*' -o -path '*/Library*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
-
+export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/Games*' -o -path '*/anaconda*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
 set -o vi
-
-cdl_function () {
-    cd $1 && ls -lah
-}
-
-mkdirc_function () {
-    mkdir -p $1 && cd $1
-}
-
-findin_function () {
-    grep -rn '.' -ie $1
-}
-
-replaceall_function () {
-    find . -type f -exec sed -i $1 {} \;
-}
 
 # Tab completed virtual environments
 vact () {
@@ -196,8 +180,25 @@ __vact()
 }
 complete -F __vact vact
 
-# Pytest setting
-export PYTEST_ADDOPTS="-v"
+mkdirc_function () {
+    mkdir -p $1 && cd $1
+}
+
+cdl_function () {
+    cd $1 && ls -lah
+}
+
+findin_function () {
+    grep -rn '.' -ie "$@"
+}
+
+replaceall_function () {
+    find . -type f -exec sed -i $1 {} \;
+}
+
+connect_ec2_func() {
+    ssh -i ~/.ssh/a8c_servers_id_rsa -o StrictHostKeyChecking=no ec2-user@$1
+}
 
 # Editor options
 export EDITOR="vim"
@@ -227,14 +228,23 @@ install_rbenv() {
     fi
 }
 
+# Fuzzyfind settings
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Added by me
+export FONTCONFIG_PATH=/etc/fonts
 
-# added by Anaconda3 installer
-# export PATH="/home/aether/programs/anaconda3/bin:$PATH"  # commented out by conda initialize
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/home/aether/.local/bin/:$PATH"
 
 # Rebind inputrc
 bind -f ~/.inputrc
+
+# Ruby version manager
+[ -f /etc/profile.d/rvm.sh ] && source /etc/profile.d/rvm.sh
+
+# Starship stuff
+eval "$(starship init bash)"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -251,8 +261,3 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# Ruby version manager
-[ -f /etc/profile.d/rvm.sh ] && source /etc/profile.d/rvm.sh
-
-# Starship init
-eval "$(starship init bash)"
