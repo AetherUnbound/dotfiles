@@ -15,10 +15,6 @@ HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
 # set grep color
 GREP_COLORS="mt=01;34:ms=01;34:mc=01;31"
 TERM=xterm-256color
@@ -235,7 +231,7 @@ export FONTCONFIG_PATH=/etc/fonts
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="/home/aether/.local/bin/:$PATH"
+eval "$(/home/aether/.linuxbrew/bin/brew shellenv)"
 
 # Rebind inputrc
 bind -f ~/.inputrc
