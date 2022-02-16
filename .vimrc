@@ -40,6 +40,7 @@ Plugin 'psf/black'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'cespare/vim-toml'
+Plugin 'markonm/traces.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
