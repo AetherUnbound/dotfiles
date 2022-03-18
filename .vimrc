@@ -185,6 +185,11 @@ if has("autocmd")
           \| exe "normal! g'\"" | endif
 endif
 
+" Change the colorscheme to something where you can ACTUALLY see colors in diffs
+if &diff
+    colorscheme industry
+endif
+
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window (for an alternative on Windows, see simalt below).
