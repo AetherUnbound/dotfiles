@@ -25,3 +25,6 @@ style = "bold white"
 disabled = false
 format = "[$time]($style)"
 use_12hr = true
+
+[git_status]
+format = '([\[$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind\]]($style) )'
