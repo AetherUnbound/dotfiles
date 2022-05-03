@@ -177,8 +177,8 @@ if has("autocmd")
         au BufEnter *.tex imap <F3> <esc>:w\|:!pdflatex -shell-escape % <cr> <esc>
         au BufEnter *.tex map <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
         au BufEnter *.tex imap <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
-        " Start NERDTree and put the cursor back in the other window.
-        autocmd VimEnter * NERDTree | wincmd p
+        " Start NERDTree and put the cursor back in the other window (but only if the buffer is a file)
+        autocmd VimEnter * if argc() | NERDTree | wincmd p | endif
         " Exit Vim if NERDTree is the only window remaining in the only tab.
         autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
         " Jump to the last position visited in a file when re-opening
