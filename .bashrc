@@ -197,6 +197,16 @@ replaceall_function () {
 connect_ec2_func() {
     ssh -i ~/.ssh/a8c_servers_id_rsa -o StrictHostKeyChecking=no ec2-user@$1
 }
+connect_ec2_func_airflow() {
+    local pub_dns=$(aws ec2 describe-instances --filters '[{"Name": "tag:Name", "Values": ["catalog-airflow-prod"]}]' | jq -r .Reservations[0].Instances[0].PublicDnsName)
+    connect_ec2_func $pub_dns
+}
+
+# Enable docker buildkit
+export DOCKER_BUILDKIT=1
+
+# Improved paging options for less
+export LESS="-XFR"
 
 # Editor options
 export EDITOR="vim"
