@@ -28,3 +28,9 @@ use_12hr = true
 
 [git_status]
 format = '([\[$conflicted$deleted$renamed$modified$staged$untracked$ahead_behind\]]($style) )'
+
+[custom.screen]
+command = "echo $STY | cut -f2 -d."
+when = """ test "$STY" != "" """
+symbol = "🖥️"
+format = "[$symbol ($output )]($style)"
