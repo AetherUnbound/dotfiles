@@ -195,12 +195,20 @@ replaceall_function () {
 }
 
 connect_ec2_func() {
-    ssh -i ~/.ssh/a8c_servers_id_rsa -o StrictHostKeyChecking=no ec2-user@$1
+    ssh -i ~/.ssh/a8c_servers_id_rsa -o StrictHostKeyChecking=no "${@:2}" ec2-user@$1
 }
+
+connect_ec2_func_jumpbox() {
+    connect_ec2_func "jumphost.openverse.engineering" "-N" "-L" "5432:$1-openverse-db.$OPENVERSE_VPC_ENDPOINT:5432"
+}
+
 connect_ec2_func_airflow() {
     local pub_dns=$(aws ec2 describe-instances --filters '[{"Name": "tag:Name", "Values": ["catalog-airflow-prod"]}]' | jq -r .Reservations[0].Instances[0].PublicDnsName)
     connect_ec2_func $pub_dns
 }
+
+# Source secrets
+[ -f ~/.bash_secrets ] && source ~/.bash_secrets
 
 # Enable docker buildkit
 export DOCKER_BUILDKIT=1
