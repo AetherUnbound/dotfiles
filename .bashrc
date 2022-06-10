@@ -153,6 +153,8 @@ alias mkdirc=mkdirc_function
 alias a8cproxy="ssh -i ~/.ssh/automattic_id_rsa -N -D 8080 aetherunbound@proxy.automattic.com"
 alias sudovim="sudoedit"
 alias ec2ssh=connect_ec2_func
+alias ec2ssh-jumpbox=connect_ec2_func_jumpbox
+alias ec2ssh-airflow=connect_ec2_func_airflow
 alias woman="/usr/bin/man"
 alias man="cheat"
 
