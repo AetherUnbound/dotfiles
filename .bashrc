@@ -157,6 +157,8 @@ alias ec2ssh-jumpbox=connect_ec2_func_jumpbox
 alias ec2ssh-airflow=connect_ec2_func_airflow
 alias woman="/usr/bin/man"
 alias man="cheat"
+alias dpi="sudo dpkg -i"
+alias vh="conda activate $(basename $(pwd))"
 
 # Binds
 bind "set completion-ignore-case on"
