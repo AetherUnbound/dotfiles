@@ -159,6 +159,7 @@ alias woman="/usr/bin/man"
 alias man="cheat"
 alias dpi="sudo dpkg -i"
 alias vh="conda activate $(basename $(pwd))"
+alias .j='just --justfile ~/.justfile --working-directory .'
 
 # Binds
 bind "set completion-ignore-case on"
@@ -404,4 +405,4 @@ _just() {
     esac
 }
 
-complete -F _just -o bashdefault -o default just
+complete -F _just -o bashdefault -o default just j .j
