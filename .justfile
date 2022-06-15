@@ -44,4 +44,4 @@ sdsa-import:
     cd ~/git/sdsa-member-importer
     which python
     DEBUG='' python sdsa_member_importer/main.py $target_path
-    
+
