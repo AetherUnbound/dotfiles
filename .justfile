@@ -10,6 +10,14 @@ sdsa_date_override := ""
 sdsa_archive_dir := "~/misc/sdsa-membership"
 
 
+# Run spotipy random command
+spotify-random:
+    #!/usr/bin/env bash
+    set -e
+    . activate spotipy
+    spotify-random
+
+
 # Determine the most recent monday
 _most-recent-monday override="":
     #!/usr/bin/env python3
