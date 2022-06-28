@@ -48,9 +48,9 @@ sdsa-import:
     unzip -o $source_path.zip -d ~/Downloads/
     target_path={{ sdsa_archive_dir }}/seattle_membership_list_$(just _most-recent-monday {{ sdsa_date_override }}).csv
     mv $source_path.csv $target_path
-    rm $source_path.zip
     . activate sdsa-member-importer
     cd ~/git/sdsa-member-importer
     which python
     DEBUG='' python sdsa_member_importer/main.py $target_path
+    rm $source_path.zip
 
