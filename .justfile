@@ -40,7 +40,7 @@ _most-recent-monday override="":
     print(monday.isoformat())
 
 # Unzip, archive, and import the latest SDSA roster data
-@sdsa-import:
+sdsa-import:
     #!/usr/bin/env bash
     set -e
     . ~/.bashrc
