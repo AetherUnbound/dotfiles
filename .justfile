@@ -40,7 +40,7 @@ _most-recent-monday override="":
     print(monday.isoformat())
 
 # Unzip, archive, and import the latest SDSA roster data
-sdsa-import:
+@sdsa-import:
     #!/usr/bin/env bash
     set -e
     . ~/.bashrc
@@ -48,6 +48,7 @@ sdsa-import:
     unzip -o $source_path.zip -d ~/Downloads/
     target_path={{ sdsa_archive_dir }}/seattle_membership_list_$(just _most-recent-monday {{ sdsa_date_override }}).csv
     mv $source_path.csv $target_path
+    rm $source_path.zip
     . activate sdsa-member-importer
     cd ~/git/sdsa-member-importer
     which python
