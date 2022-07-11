@@ -54,3 +54,6 @@ sdsa-import:
     DEBUG='' python sdsa_member_importer/main.py $target_path
     rm $source_path.zip
 
+# Run Gogh terminal colors program
+gogh:
+    bash -c  "$(wget -qO- https://git.io/vQgMr)"
