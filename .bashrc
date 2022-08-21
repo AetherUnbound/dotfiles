@@ -92,7 +92,7 @@ fi
 # some more ls aliases
 alias ll='ls -alFh'
 alias la='ls -A'
-alias l='ls -CF'
+alias l='ll'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -160,6 +160,7 @@ alias man="cheat"
 alias dpi="sudo dpkg -i"
 alias vh="conda activate $(basename $(pwd))"
 alias .j='just --justfile ~/.justfile --working-directory .'
+alias sizes="du -hs * | sort -hr"
 
 # Binds
 bind "set completion-ignore-case on"
