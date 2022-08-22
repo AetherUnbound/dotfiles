@@ -57,3 +57,7 @@ sdsa-import:
 # Run Gogh terminal colors program
 gogh:
     bash -c  "$(wget -qO- https://git.io/vQgMr)"
+
+# Generate a random password
+random-pass length="20":
+    @tr -dc A-Za-z0-9 </dev/urandom | head -c {{ length }}
