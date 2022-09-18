@@ -54,6 +54,13 @@ sdsa-import:
     DEBUG='' python sdsa_member_importer/main.py $target_path
     rm $source_path.zip
 
+# Install a .deb package, ensure it installs correctly, then remove it
+install package:
+    #!/usr/bin/env bash
+    set -e
+    sudo dpkg -i '{{ package }}'
+    rm '{{ package }}'
+
 # Run Gogh terminal colors program
 gogh:
     bash -c  "$(wget -qO- https://git.io/vQgMr)"
