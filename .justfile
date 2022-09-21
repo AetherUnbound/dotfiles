@@ -68,3 +68,7 @@ gogh:
 # Generate a random password
 random-pass length="20":
     @tr -dc A-Za-z0-9 </dev/urandom | head -c {{ length }}
+
+# List all ports in use
+ports-in-use:
+    sudo netstat -tulpn | grep LISTEN
