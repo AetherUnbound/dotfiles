@@ -178,7 +178,7 @@ if has("autocmd")
         au BufEnter *.tex map <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
         au BufEnter *.tex imap <F6> <esc>:w\|:!bibtex %:r <cr> <esc>
         " Start NERDTree and put the cursor back in the other window (but only if the buffer is a file)
-        autocmd VimEnter * if argc() | NERDTree | wincmd p | endif
+        autocmd VimEnter * if argc() && !&diff | NERDTree | wincmd p | endif
         " Exit Vim if NERDTree is the only window remaining in the only tab.
         autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
         " Jump to the last position visited in a file when re-opening
@@ -195,4 +195,11 @@ if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window (for an alternative on Windows, see simalt below).
     set columns=120
+endif
+
+" Ignore whitespace in diffs
+" https://vim.fandom.com/wiki/Ignore_white_space_in_vimdiff
+if &diff
+    " diff mode
+    set diffopt+=iwhite
 endif
