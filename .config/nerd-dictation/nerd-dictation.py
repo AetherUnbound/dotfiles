@@ -44,6 +44,8 @@ WORD_REPLACE_REGEX = tuple(
 CLOSING_PUNCTUATION = {
     "period": ".",
     "comma": ",",
+    # Freaking model mishears this
+    "karma": ",",
     "question mark": "?",
     "close quote": '"',
     "exclamation mark": '!',
