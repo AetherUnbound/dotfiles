@@ -257,7 +257,17 @@ export FONTCONFIG_PATH=/etc/fonts
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Brew setup
 eval "$(/home/aether/.linuxbrew/bin/brew shellenv)"
+# individual completions
+libraries=("gh" "postgresql" "crontab" "heroku")
+for library in "${libraries[@]}"; do
+    fileloc="$(brew --prefix)/etc/bash_completion.d/gh"
+    if [ -f "$fileloc" ]; then
+        . $fileloc
+    fi
+done
 
 # Rebind inputrc
 bind -f ~/.inputrc
