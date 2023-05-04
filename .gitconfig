@@ -5,7 +5,7 @@
     d = diff
     comm = commit -m
     co = checkout
-    cob = checkout -b
+    cob = !git m && git checkout -b
     mast = checkout master
     m = !git checkout main && git pull
     cp = cherry-pick
