@@ -5,7 +5,7 @@
     d = diff
     comm = commit -m
     co = checkout
-    cob = git checkout -b
+    cob = checkout -b
     mcob = !git m && git cob
     mast = checkout master
     m = !git checkout main && git pull
