@@ -14,6 +14,7 @@ sdsa_archive_dir := "~/misc/sdsa-membership"
 spotify-random:
     #!/usr/bin/env bash
     set -e
+    export PATH=$PATH:/home/madison/programs/anaconda3/bin
     . activate spotipy
     spotify-random
 
@@ -43,7 +44,7 @@ _most-recent-monday override="":
 sdsa-import:
     #!/usr/bin/env bash
     set -e
-    . ~/.bashrc
+    export PATH=$PATH:/home/madison/programs/anaconda3/bin
     source_path=~/Downloads/seattle_membership_list
     unzip -o $source_path.zip -d ~/Downloads/
     target_path={{ sdsa_archive_dir }}/seattle_membership_list_$(just _most-recent-monday {{ sdsa_date_override }}).csv
