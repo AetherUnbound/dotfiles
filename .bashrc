@@ -163,6 +163,7 @@ alias .j='just --justfile ~/.justfile --working-directory .'
 alias sizes="du -hs * | sort -hr"
 alias git_noup='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"''
 alias prune-em-all="git_noup | xargs git branch -D"
+alias ghpc="gh pr checkout"
 
 # Binds
 bind "set completion-ignore-case on"
