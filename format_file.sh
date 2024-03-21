@@ -8,7 +8,7 @@ file="$1"
 ext=${file#*.}
 
 case $ext in 
-    md)
+    md|js|mjs|ts)
         pnpm exec prettier -w "$file"
         ;;
     py)
