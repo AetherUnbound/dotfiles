@@ -14,6 +14,9 @@ case $ext in
     py)
         black "$file"
         ;;
+    tf)
+        terraform fmt "$file"
+        ;;
     *)
         echo "Can't process file of type '$ext'!"
         exit 1
