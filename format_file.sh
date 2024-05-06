@@ -12,7 +12,7 @@ case $ext in
         pnpm exec prettier -w "$file"
         ;;
     py)
-        black "$file"
+        ruff format "$file"
         ;;
     tf)
         terraform fmt "$file"
