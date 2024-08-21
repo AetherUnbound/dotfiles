@@ -1,0 +1,12 @@
+{
+  "aliases": {
+    "welcome": {
+      "cmd": ["just", "welcome-to-openverse"],
+      "doc": "Warmly welcome Openverse contributors (and provide an example for how aliases work)."
+    },
+    "cipython": {
+      "cmd": ["just", "catalog/ipython", "--TerminalInteractiveShell.editing_mode=vi"],
+      "doc": "Run ipython in the catalog with vim keybindings"
+    }
+  }
+}
