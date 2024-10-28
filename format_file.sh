@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PATH=$PATH:~/.local/bin/:~/.nvm/versions/node/v16.19.0/bin/
+# export PATH=$PATH:~/.local/bin/:~/.nvm/versions/node/v16.19.0/bin/
 
 # get argument
 file="$1"
@@ -8,7 +8,10 @@ file="$1"
 ext=${file#*.}
 
 case $ext in 
-    md|js|mjs|ts)
+    md)
+        prettier -w "$file"
+        ;;
+    js|mjs|ts)
         pnpm exec prettier -w "$file"
         ;;
     py)
