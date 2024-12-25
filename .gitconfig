@@ -5,8 +5,8 @@
     d = diff
     comm = commit -m
     co = checkout
-    ncob = git checkout -b
-    cob = !git m && !git ncob
+    ncob = checkout -b
+    cob = !git m && git ncob
     mast = checkout master
     m = !git checkout main && git pull
     cp = cherry-pick
