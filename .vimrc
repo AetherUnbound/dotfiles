@@ -78,8 +78,10 @@ noremap Y y$
 noremap! <C-h> <C-w>
 noremap <F4> <esc>:w<cr><esc>
 inoremap <F4> <esc>:w<cr><esc>li
-map <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
-imap <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
+" map <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
+" imap <F5> <esc>:%s/'/"/g<cr><esc>:%!python -m json.tool <cr> <esc>
+map <F5> <esc>:%!python3 -m json.tool <cr> <esc>
+imap <F5> <esc>:%!python3 -m json.tool <cr> <esc>
 " Needed for GVIm
 nnoremap <S-CR> A<CR><Esc>
 " Needed for CLI VIm (Note: ^[0M was created with Ctrl+V Shift+Enter, don't type it directly

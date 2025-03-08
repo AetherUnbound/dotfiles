@@ -134,6 +134,7 @@ alias cdl=cdl_function
 alias ebrc='vim +129 ~/.bashrc && source ~/.bashrc'
 alias evrc='vim +109 ~/.vimrc'
 alias jnb='jupyter notebook'
+alias cat='bat'
 alias b='cd ..'
 alias ro='vim -M '
 alias hack='cat /dev/urandom | hexdump -C | grep "[[:alpha:]]\{2\}"' 
@@ -150,7 +151,6 @@ alias yeet="rm -rf"
 alias inenv="set | grep -i"
 alias inpip="pip list | grep -i"
 alias mkdirc=mkdirc_function
-alias a8cproxy="ssh -i ~/.ssh/automattic_id_rsa -N -D 8080 aetherunbound@proxy.automattic.com"
 alias sudovim="sudoedit"
 alias ec2ssh=connect_ec2_func
 alias ec2ssh-jumpbox=connect_ec2_func_jumpbox
@@ -171,8 +171,8 @@ bind "TAB: menu-complete"
 bind '"\e[Z": complete'
 
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
-export FZF_CTRL_T_COMMAND='ag --ignore "node_modules/" --ignore "anaconda.*/" -g ""'
-export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/Games*' -o -path '*/venv*' -o -path '*/wp-calypso*' -o -path '*/gutenberg*' -o -path '*/anaconda*' -o -path '*/parler*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
+export FZF_CTRL_T_COMMAND='ag --ignore "node_modules/" --ignore "anaconda.*/" --ignore "~/programs/anaconda3" -g ""'
+export FZF_ALT_C_COMMAND="command find -L . -mindepth 1 \( -path '*/\.*' -o -fstype 'sysfs' -o -fstype 'devfs' -o -fstype 'devtmpfs' -o -fstype 'proc' -o -path '*/node_modules*' -o -path '*/Games*' -o -path '*/anaconda*' \) -prune -o -type d -print 2> /dev/null | cut -b3-"
 set -o vi
 
 # Tab completed virtual environments
@@ -420,3 +420,7 @@ _just() {
 }
 
 complete -F _just -o bashdefault -o default just j .j
+
+# QMK setup
+# https://docs.qmk.fm/cli
+export QMK_HOME="$HOME/.qmk_firmware"

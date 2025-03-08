@@ -62,6 +62,11 @@ install package:
     sudo dpkg -i '{{ package }}'
     rm '{{ package }}'
 
+# Download and install discord, specifically
+install-discord:
+    curl -L -o ~/Downloads/discord.deb https://discord.com/api/download?platform=linux
+    just install ~/Downloads/discord.deb
+
 # Run Gogh terminal colors program
 gogh:
     bash -c  "$(wget -qO- https://git.io/vQgMr)"
