@@ -17,7 +17,7 @@ case $ext in
     py)
         ruff format "$file"
         ;;
-    tf)
+    tf|tfvars)
         terraform fmt "$file"
         ;;
     *)
