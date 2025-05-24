@@ -90,6 +90,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+## Note that for pls nerd fonts to work, you need to install one:
+# https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
+
 alias ll='ls -alFh'
 alias la='ls -A'
 alias l='ll'
