@@ -92,10 +92,11 @@ fi
 # some more ls aliases
 ## Note that for pls nerd fonts to work, you need to install one:
 # https://gist.github.com/matthewjberger/7dd7e079f282f8138a9dc3b045ebefa0
-
-alias ll='ls -alFh'
+alias ols='/bin/ls'
+alias ls='pls'
+alias ll='pls -d std'
 alias la='ls -A'
-alias l='ll'
+alias l='pls'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -119,6 +120,9 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+fi
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
 fi
 
 # User commands
