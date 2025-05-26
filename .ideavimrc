@@ -63,3 +63,8 @@ filetype indent on
 " 'plaintex' instead of 'tex', which results in vim-latex not being loaded.
 " The following changes the default filetype back to 'tex':
 let g:tex_flavor='latex'
+
+" Disable ideavim in dialog boxes
+" https://stackoverflow.com/a/64894243
+set dialogescape=off
+set oneline=off
