@@ -96,7 +96,6 @@ set breakindent
 set linebreak
 set showbreak=\ \ 
 set clipboard=unnamedplus
-colors elflord
 set guifont=Source\ Code\ Pro\ For\ Powerline\ Medium\ 12
 set softtabstop=4
 set tabstop=4
@@ -107,6 +106,14 @@ set splitright
 set encoding=utf-8
 syntax on
 cmap w!! w !sudo tee > /dev/null %
+
+" Light/dark mode setting
+let sys_colors=system('gsettings get org.gnome.desktop.interface color-scheme')
+if sys_colors =~ 'dark'
+    colors ron
+else
+    colorscheme zellner
+endif
 
 " Path replacement
 command WindowsPath %s@\\@/@g
@@ -197,7 +204,8 @@ endif
 if has("gui_running")
     " GUI is running or is about to start.
     " Maximize gvim window (for an alternative on Windows, see simalt below).
-    set columns=120
+    set columns=105
+    colors industry
 endif
 
 " Ignore whitespace in diffs
