@@ -42,7 +42,8 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'flwyd/nerdtree-harvest'
 Plugin 'cespare/vim-toml'
 Plugin 'markonm/traces.vim'
-Plugin 'vmchale/just-vim'
+" Plugin 'vmchale/just-vim'  " This looks like it's missing now
+Plugin 'NoahTheDuke/vim-just'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
