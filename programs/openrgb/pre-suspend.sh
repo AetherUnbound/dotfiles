@@ -2,8 +2,8 @@
 # Write this to /usr/lib/systemd/system-sleep/pre-suspend.sh
 
 if [ "${1}" == "pre" ]; then
-	openrgb -p Off	
+	/usr/bin/openrgb --config /home/aether/.config/OpenRGB/ -p Off
 elif [ "${1}" == "post" ]; then
-	openrgb -p Main
+	/usr/bin/openrgb --config /home/aether/.config/OpenRGB/ -p Static
 fi
 
